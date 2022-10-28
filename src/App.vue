@@ -16,16 +16,18 @@
       <button @click="exitFn">退出程序</button>
       <button @click="relaunchFn">重启程序</button>
     </div>
+    <div style="background-color: beige;width:100wh;height:30px;">{{version}}</div>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import {version} from '../package.json'
 import {invoke} from '@tauri-apps/api/tauri'
 import {open,message} from '@tauri-apps/api/dialog'
 import {writeFile,readTextFile,BaseDirectory} from '@tauri-apps/api/fs'
 import {sendNotification } from '@tauri-apps/api/notification'
-import { arch,platform,tempdir,type,version} from '@tauri-apps/api/os';
+import os from '@tauri-apps/api';
 import { exit,relaunch  } from '@tauri-apps/api/process';
 
 
@@ -36,6 +38,7 @@ export default {
   },
   data() {
     return {
+      version,
       msg:'',
       fullMsg:'',
       text:'',
@@ -43,15 +46,15 @@ export default {
     }
   },
   async mounted() {
-    const archName = await arch();
+    const archName = await os.arch();
     console.log('archName',archName);
-    const platformName = await platform();
+    const platformName = await os.platform();
     console.log('platformName',platformName);
-    const tempdirPath = await tempdir();
+    const tempdirPath = await os.tempdir();
     console.log('tempdirPath',tempdirPath);
-    const osType = await type();
+    const osType = await os.type();
     console.log('osType',osType);
-    const osVersion = await version();
+    const osVersion = await os.version();
     console.log('osVersion ',osVersion );
   },
   methods: {
