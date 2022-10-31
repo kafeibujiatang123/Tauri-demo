@@ -4,7 +4,8 @@
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
     "devPath": "http://localhost:8099",
-    "distDir": "../dist"
+    "distDir": "../dist",
+    "withGlobalTauri": true
   },
   "package": {
     "productName": "tauri-demo",
@@ -16,11 +17,18 @@
       "dialog": {
         "all": true
       },
+      "globalShortcut": {
+        "all": true
+      },
       "notification": {
         "all": true
       },
       "os": {
         "all": true
+      },
+      "fs": {
+        "all": true,
+        "scope": ["$RESOURCE/config/*"]
       }
     },
     "bundle": {
@@ -47,7 +55,7 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [],
+      "resources": ["config/*"],
       "shortDescription": "",
       "targets": "all",
       "windows": {
@@ -75,6 +83,10 @@
         "title": "tauri-demo",
         "width": 800
       }
-    ]
+    ],
+    "systemTray": {
+      "iconPath": "./icons/icon.ico",
+      "iconAsTemplate": true
+    }
   }
 }
